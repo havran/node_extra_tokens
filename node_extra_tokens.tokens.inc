@@ -14,7 +14,10 @@ function node_extra_tokens_tokens($type, $tokens, array $data = array(), array $
 
   if ($type == 'node') {
     foreach ($tokens as $name => $original) {
-      list($oname, $pad, $pad_length) = explode(':', $name);
+      $name_exploded = explode(':', $name);
+      if (strpos($name, 'nid') !== 0 && count($name_exploded) !== 3) continue;
+      
+      list($oname, $pad, $pad_length) = $name_exploded;
       
       if ( $oname === 'nid' 
            && !empty($pad) && $pad === 'pad'  
